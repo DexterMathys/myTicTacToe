@@ -14,27 +14,31 @@ function Square(props) {
 }
 
 function calculateWinner(squares) {
-    const lines = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6],
-    ];
-    for (let i = 0; i < lines.length; i++) {
-      const [a, b, c] = lines[i];
-      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-        return squares[a];
-      }
+  // all possible winning moves
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+
+    // If I have the same symbol in each position, then it is a winning move
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
     }
-    return null;
   }
+  return null;
+}
   
   class Board extends React.Component {
     
+    // function to draw a square
     renderSquare(i) {
         return (
             <Square 
@@ -85,6 +89,7 @@ function calculateWinner(squares) {
         super(props);
         this.state = {
           history: [{
+            // Fill all the squares with null
             squares: Array(9).fill(null),
           }],
           stepNumber: 0,
@@ -109,6 +114,7 @@ function calculateWinner(squares) {
         });
       }
 
+      // function to return to a previous move
       jumpTo(step) {
         this.setState({
           stepNumber: step,
@@ -117,35 +123,36 @@ function calculateWinner(squares) {
       }
 
     render() {
-        const { Header, Content } = Layout;
-        const history = this.state.history;
-        const current = history[this.state.stepNumber];
-        const winner = calculateWinner(current.squares);
+      const { Header, Content } = Layout;
+      const history = this.state.history;
+      const current = history[this.state.stepNumber];
+      const winner = calculateWinner(current.squares);
 
-        const moves = history.map((step, move) => {
-            let button;
-            if (move) {
-              button = <Button shape="round" onClick={() => this.jumpTo(move)}>{'Go to move #' + move}</Button>;
-            } else {
-              button = <Button type="primary" shape="round" onClick={() => this.jumpTo(move)}>{'Go to game start'}</Button>;
-            }
-            return (
-              <li key={move}>
-                {button}
-              </li>
-            );
-          });
-
-        let status;
-        if (winner) {
-            status = 'Winner: ' + winner;
+      // generate the list of movements
+      const moves = history.map((step, move) => {
+        let button;
+        if (move) {
+          button = <Button shape="round" onClick={() => this.jumpTo(move)}>{'Go to move #' + move}</Button>;
         } else {
-            status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+          button = <Button type="primary" shape="round" onClick={() => this.jumpTo(move)}>{'Go to game start'}</Button>;
         }
+        return (
+          <li key={move}>
+            {button}
+          </li>
+        );
+      });
+
+      let status;
+      if (winner) {
+          status = 'Winner: ' + winner;
+      } else {
+          status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+      }
       return (
         <Layout className="heigth-100">
           <Header>
-            <h1 className="header">TIC-TAC-TOE</h1>
+            <h1 className="header">My TIC-TAC-TOE</h1>
           </Header>
           <Content className="body">
           <Row className="heigth-70">
