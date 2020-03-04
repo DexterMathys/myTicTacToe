@@ -86,3 +86,25 @@ body {
   .O {
     color: #b92b27;
   }
+
+  .layout {
+    padding-bottom: 5%;
+  }
+  
+  .ml-2 {
+    margin-left: 2%;
+  }
+  
+  .mr-2 {
+    margin-right: 2%;
+  }
+
+  .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: white;
+    padding: 0% 5%;
+  }

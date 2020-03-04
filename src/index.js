@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Layout, Row, Col, Button } from 'antd';
+import { Layout, Row, Col, Button, Icon } from 'antd';
 
 import './index.css';
 import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
@@ -123,7 +123,7 @@ function calculateWinner(squares) {
       }
 
     render() {
-      const { Header, Content } = Layout;
+      const { Header, Content, Footer } = Layout;
       const history = this.state.history;
       const current = history[this.state.stepNumber];
       const winner = calculateWinner(current.squares);
@@ -182,6 +182,20 @@ function calculateWinner(squares) {
             <Col span={6}></Col>
           </Row>
           </Content>
+          <Footer className="footer">
+            <h3>Matias Pankow</h3> 
+            <h2>
+              <a className="ml-2 mr-2" href="https://www.linkedin.com/in/matias-nahuel-pankow/">
+                <Icon type="linkedin" theme="filled" />
+              </a>
+              <a className="ml-2 mr-2" href="https://github.com/DexterMathys">
+                <Icon type="github" theme="filled" />
+              </a>
+              <span className="ml-2 mr-2"><Icon type="mail" theme="filled" /> matipankow@gmail.com</span>
+              <span className="ml-2 mr-2"><Icon type="skype" theme="filled" /> mathys_p</span>
+              <span className="ml-2 mr-2"><Icon type="phone" theme="filled" /> +54 9 1162523556</span>
+            </h2>
+          </Footer>
         </Layout>
       );
     }
